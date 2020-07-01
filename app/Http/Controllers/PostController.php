@@ -20,6 +20,11 @@ class PostController extends Controller
       ]);
     }
 
+    /**
+     * post作成用ページを表示.
+     *
+     * @return 投稿作成用フォーム
+     */
     public function showCreateForm()
     {
       return view('posts.create');
