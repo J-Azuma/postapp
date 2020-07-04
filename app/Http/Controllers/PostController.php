@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Requests\CreatePost;
 
 class PostController extends Controller
 {
@@ -36,7 +37,7 @@ class PostController extends Controller
    * @param Request $request
    * @return void 投稿一覧画面に遷移
    */
-  public function create(Request $request)
+  public function create(CreatePost $request)
   {
     $post = new Post();
     $post->title = $request->title;
