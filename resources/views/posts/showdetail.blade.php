@@ -12,6 +12,10 @@
   <p>作成日</p>
   <span>{{$post->created_at->format('yy/m/d')}}<span>
   <p>本文</p>
-  <span>{{$post->content}}</span>
+  <span>{{$post->content}}</span> <br>
+  <form action="{{route('posts.delete', ['post' => $post])}}" method="post">
+  @csrf
+  <button>delete</button>
+  </form>
 </body>
 </html>
