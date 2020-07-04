@@ -7,11 +7,11 @@
   <title>Document</title>
 </head>
 <body>
-  @foreach ($posts as $post)
-      <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
-      <p>{{$post->content}}</p>
-      <hr>
-  @endforeach
-
+  <p>タイトル</p>
+  <span>{{$post->title}}</span> <br>
+  <p>作成日</p>
+  <span>{{$post->created_at->format('yy/m/d')}}<span>
+  <p>本文</p>
+  <span>{{$post->content}}</span>
 </body>
 </html>
