@@ -8,7 +8,8 @@
 </head>
 <body>
   <h3>Add Post</h3>
-  <form action="#" method="post">
+  <form action="{{route('posts.create')}}" method="post">
+    @csrf
     <label for="post-title">title</label> <br>
     <input type="text" id="post-title" name="title"> <br>
     <label for="post-content"></label> <br>

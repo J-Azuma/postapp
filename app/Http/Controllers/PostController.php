@@ -14,7 +14,7 @@ class PostController extends Controller
    */
     public function index()
     {
-      $posts = Post::all();
+      $posts = Post::all()->sortBy('id', 'desc');
       return view('posts.index', [
         'posts' => $posts,
       ]);
@@ -29,4 +29,15 @@ class PostController extends Controller
     {
       return view('posts.create');
     }
+
+    public function create(Request $request) {
+      $post= new Post();
+      $post->title = $request->title;
+      $post->content = $request->content;
+      $post->save();
+      return redirect()->route('posts.index', [
+        'posts' => Post::all()->sortByDesc('id'),
+      ]);
+    }
+
 }
