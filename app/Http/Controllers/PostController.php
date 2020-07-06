@@ -49,17 +49,22 @@ class PostController extends Controller
   }
 
   /**
-   * 投稿詳細画面を表示する
+   * 投稿詳細画面を表示する.
    *
    * @param Post $post
    * @return void
    */
   public function showDetail(Post $post)
   {
-    $comments = $post->comments()->get();
-    return view('posts.showdetail', ['post' => $post, 'comments' => $comments,]);
+    return view('posts.showdetail', ['post' => $post,]);
   }
 
+  /**
+   * 投稿を削除する.
+   *
+   * @param Post $post 削除する投稿
+   * @return void
+   */
   public function delete(Post $post)
   {
     $post->delete();

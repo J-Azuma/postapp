@@ -18,10 +18,18 @@
   <button>delete</button>
   </form> <br>
   <hr>
-  @foreach ($comments as $comment)
-    <span>{{$comment->created_at->format('yy/m/d')}}</span> <br>
+  @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
+    <span>{{$comment->created_at->format('yy/m/d G:i:s')}}</span> <br>
     <span>{{$comment->content}}</span> <br>
     <hr>
   @endforeach
+
+  コメントを送信する <br>
+  <form action="{{route('comments.create', ['post' => $post])}}" method="post">
+   @csrf
+   <label for="comment">本文</label> <br>
+   <textarea name="content" id="comment" cols="20" rows="10">{{old('content')}}</textarea> <br>
+   <button>コメントを送信</button>
+  </form>
 </body>
 </html>
