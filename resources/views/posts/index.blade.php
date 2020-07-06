@@ -8,9 +8,9 @@
 </head>
 <body>
   @foreach ($posts as $post)
-      <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
-      <p>{{$post->content}}</p>
-      <hr>
+    <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
+    <p>{{$post->content}}</p>
+    <hr>
   @endforeach
 
 </body>
