@@ -56,7 +56,8 @@ class PostController extends Controller
    */
   public function showDetail(Post $post)
   {
-    return view('posts.showdetail', ['post' => $post,]);
+    $comments = $post->comments()->get();
+    return view('posts.showdetail', ['post' => $post, 'comments' => $comments,]);
   }
 
   public function delete(Post $post)

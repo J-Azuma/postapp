@@ -12,10 +12,16 @@
   <p>作成日</p>
   <span>{{$post->created_at->format('yy/m/d')}}<span>
   <p>本文</p>
-  <span>{{$post->content}}</span> <br>
+  <span>{{$post->content}}</span> <br> <br>
   <form action="{{route('posts.delete', ['post' => $post])}}" method="post">
   @csrf
   <button>delete</button>
-  </form>
+  </form> <br>
+  <hr>
+  @foreach ($comments as $comment)
+    <span>{{$comment->created_at->format('yy/m/d')}}</span> <br>
+    <span>{{$comment->content}}</span> <br>
+    <hr>
+  @endforeach
 </body>
 </html>
