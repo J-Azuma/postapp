@@ -7,6 +7,14 @@
   <title>Document</title>
 </head>
 <body>
+  <header>
+@if (Auth::user())
+<form action="{{route('logout')}}" method="post">
+  @csrf
+ <button>logout</button>
+</form>
+@endif
+  </header>
   @foreach ($posts as $post)
     <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
     <p>{{$post->content}}</p>
