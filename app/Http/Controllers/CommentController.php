@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use App\Http\Requests\CreateComment;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -21,6 +22,7 @@ class CommentController extends Controller
     echo $post->id;
     $comment = new Comment();
     $comment->content = $request->content;
+    $comment->user_id = Auth::user()->id;
     $post->comments()->save($comment);
     return redirect()->route('posts.showdetail', ['post' => $post,]);
   }
