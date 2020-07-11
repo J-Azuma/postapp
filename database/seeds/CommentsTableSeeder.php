@@ -13,10 +13,12 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
+      $user = DB::table('users')->where('name', 'test2')->first();
       foreach (range(1,10) as $num) {
         DB::table('comments')->insert([
-          'post_id' => $num,
+          'post_id' => App\Post::first()->id,
           'content' => "dummy: comment {$num} \n unko unko",
+          'user_id' => $user->id,
           'created_at' => Carbon::now(),
           'updated_at' => Carbon::now(),
         ]);
