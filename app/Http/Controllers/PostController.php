@@ -67,7 +67,6 @@ class PostController extends Controller
    */
   public function delete(Post $post)
   {
-    $post->comments()->get()->each->delete();
     $post->delete();
     return redirect()->route('posts.index', [
       'posts' => Post::all()->sortByDesc('id'),
