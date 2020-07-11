@@ -13,6 +13,8 @@
   @csrf
  <button>logout</button>
 </form>
+@else
+<a href="{{route('login')}}">login</a>
 @endif
   </header>
   @foreach ($posts as $post)
