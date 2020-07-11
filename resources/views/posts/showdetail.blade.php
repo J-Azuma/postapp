@@ -15,10 +15,12 @@
   <span>{{$post->created_at->format('yy/m/d')}}<span>
   <p>本文</p>
   <span>{{$post->content}}</span> <br> <br>
+  @if (Auth::check() && Auth::user()->id == $post->user_id)
   <form action="{{route('posts.delete', ['post' => $post])}}" method="post">
-  @csrf
-  <button>delete</button>
-  </form> <br>
+    @csrf
+    <button>delete</button>
+    </form> <br>
+  @endif
   <hr>
   @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
     <span>{{$comment->created_at->format('yy/m/d G:i:s')}}</span> <br>
