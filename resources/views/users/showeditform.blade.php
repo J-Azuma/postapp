@@ -7,8 +7,17 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="{{route('users.edit')}}" method="post">
+  <form action="#" method="post">
+    name <br>
+    <input type="text" name="name" value="{{$user->name}}"> <br>
 
+    email <br>
+    <input type="text" name="email" value="{{$user->email}}"> <br>
+
+    profile <br>
+    <textarea name="profile"  cols="30" rows="10" >{{$user->profile}}</textarea> <br>
+
+    <button>submit</button>
   </form>
 </body>
 </html>
