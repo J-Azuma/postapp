@@ -19,5 +19,5 @@ Route::post('/posts/create', 'PostController@create')->name('posts.create');
 Route::get('/posts/detail/{post}', 'PostController@showDetail')->name('posts.showdetail');
 Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
 Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
-Route::get('users/detail/{user}', 'UserController@showDetail')->name('users.showDetail');
+Route::get('users/detail/{user}', 'UserController@showDetail')->name('users.showdetail');
 Auth::routes();
