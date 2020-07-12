@@ -16,7 +16,7 @@ class UserController extends Controller
    */
   public function showDetail(User $user)
   {
-    return view('users.showDetail', [
+    return view('users.showdetail', [
       'user' => $user,
     ]);
   }
