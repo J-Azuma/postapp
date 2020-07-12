@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\EditUser;
 
 class UserController extends Controller
 {
@@ -33,5 +35,14 @@ class UserController extends Controller
       'users.showeditform',
       ['user' => $user]
     );
+  }
+
+  public function edit(EditUser $request)
+  {
+    $user = Auth::user();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->profile = $request->profile;
+    return view('user.showdetail', ['user' => $user]);
   }
 }
