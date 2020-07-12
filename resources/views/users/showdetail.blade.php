@@ -7,6 +7,8 @@
   <title>Document</title>
 </head>
 <body>
-  {{$user->name}}
+  name: {{$user->name}} <br>
+  register date :{{$user->created_at->format('yy/m/d')}} <br>
+  profile : {{$user->profile}}
 </body>
 </html>
