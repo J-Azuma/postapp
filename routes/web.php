@@ -20,4 +20,5 @@ Route::get('/posts/detail/{post}', 'PostController@showDetail')->name('posts.sho
 Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
 Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
 Route::get('users/detail/{user}', 'UserController@showDetail')->name('users.showdetail');
+Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
 Auth::routes();
