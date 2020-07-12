@@ -20,4 +20,18 @@ class UserController extends Controller
       'user' => $user,
     ]);
   }
+
+  /**
+   * ユーザー情報編集画面へのルーティング
+   *
+   * @param User $user
+   * @return void
+   */
+  public function showEditForm(User $user)
+  {
+    return view(
+      'users.showeditform',
+      ['user' => $user]
+    );
+  }
 }
