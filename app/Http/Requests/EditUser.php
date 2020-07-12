@@ -25,8 +25,8 @@ class EditUser extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'unique|eamil',
-            'profile' => 'max|255',
+            'email' => 'email',
+            'profile' => 'max:255',
         ];
     }
 }

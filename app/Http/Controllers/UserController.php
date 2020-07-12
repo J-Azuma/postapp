@@ -37,12 +37,13 @@ class UserController extends Controller
     );
   }
 
-  public function edit(EditUser $request)
+  public function edit(EditUser $request, User $user)
   {
-    $user = Auth::user();
+    //更新処理が実行できない。データベースも更新されていないので、saveメソッドが実行されていない。
     $user->name = $request->name;
     $user->email = $request->email;
     $user->profile = $request->profile;
-    return view('user.showdetail', ['user' => $user]);
+    $user->save();
+    return redirect()->route('users.showdetail', ['user' => $user]);
   }
 }
