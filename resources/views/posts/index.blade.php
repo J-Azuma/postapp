@@ -37,7 +37,8 @@
   @endif
   <hr>
   @foreach ($posts as $post)
-  <p>投稿者: {{App\User::find($post->user_id)->name}}</p>
+  <p>投稿者: <a href="{{route('users.showDetail', ['user' => App\User::find($post->user_id)])}}">
+      {{App\User::find($post->user_id)->name}}</a></p>
   <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
   <p>{{$post->content}}</p>
   コメント数 : <span>{{$post->comments()->get()->count()}}</span>
