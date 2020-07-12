@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\CreatePost;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -16,7 +17,8 @@ class PostController extends Controller
    */
   public function index()
   {
-    $posts = Post::all()->sortByDesc('id');
+    //postsテーブルのレコードをidの降順に取得してpaginate関数を使って1ページあたり10件表示したい。
+    $posts = Post::orderBy('id', 'desc')->paginate(10);
     return view('posts.index', [
       'posts' => $posts,
     ]);

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@index')->name('home');
 Route::get('/posts/index','PostController@index')->name('posts.index');
-Route::post('/posts/create', 'PostController@create');
+Route::post('/posts/create', 'PostController@create')->name('posts.create');
 Route::get('/posts/detail/{post}', 'PostController@showDetail')->name('posts.showdetail');
 Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
 Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
