@@ -14,14 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//認証が必要な機能
+Route::group(['middleware' => ['auth']], function () {
+  Route::post('/posts/create', 'PostController@create')->name('posts.create');
+  Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
+  Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
+  Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
+  Route::post('users/edit/{user}', 'UserController@edit')->name('users.edit');
+});
+
+
+//認証が不要な機能
 Route::get('/', 'PostController@index')->name('home');
 Route::get('/posts/index','PostController@index')->name('posts.index');
-//Route::post('posts/index', 'PostController@index')->name('posts.index');
-Route::post('/posts/create', 'PostController@create')->name('posts.create');
 Route::get('/posts/detail/{post}', 'PostController@showDetail')->name('posts.showdetail');
-Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
-Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
 Route::get('users/detail/{user}', 'UserController@showDetail')->name('users.showdetail');
-Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
-Route::post('users/edit/{user}', 'UserController@edit')->name('users.edit');
 Auth::routes();
