@@ -23,6 +23,7 @@ class EditUser extends FormRequest
      */
     public function rules()
     {
+      //emailに重複禁止バリデーションを設定すると、ユーザ情報更新の際にメールアドレスを変更しないとエラーが発生する。
         return [
             'name' => 'required',
             'email' => 'email',
