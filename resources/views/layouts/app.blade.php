@@ -13,17 +13,21 @@
     <a href="{{route('home')}}">Sample App</a>
     |
     @if (Auth::user())
-    <a href="{{route('logout')}}">logout</a>
+    <form action="{{route('logout')}}" method="post">
+      @csrf
+      <button>logout</button>
+    </form>
     |
     <!-- 検索フォーム-->
+    @else
+    <a href="{{route('login')}}">login</a>
+    @endif
+    |
     <form action="{{route('posts.index')}}" method="get">
       @csrf
       <input type="text" name="keyword"  placeholder="unko" >
       <button>search</button>
      </form>
-    @else
-    <a href="{{route('login')}}">login</a>
-    @endif
   </header>
   <main>
     @yield('content')
