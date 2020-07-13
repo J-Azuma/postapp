@@ -18,7 +18,7 @@
     <!-- 検索フォーム-->
     <form action="{{route('posts.index')}}" method="get">
       @csrf
-      <input type="text" name="keyword" value="{{$keyword}}" placeholder="unko" >
+      <input type="text" name="keyword"  placeholder="unko" >
       <button>search</button>
      </form>
     @else

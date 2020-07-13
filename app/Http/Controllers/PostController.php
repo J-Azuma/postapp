@@ -17,7 +17,7 @@ class PostController extends Controller
    */
   public function index(Request $request)
   {
-   $keyword = $request->input('keyword');
+   $keyword = $request->keyword;
    if ($keyword == null) {
      $keyword = "";
    }

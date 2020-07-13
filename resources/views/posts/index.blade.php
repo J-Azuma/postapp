@@ -18,6 +18,9 @@
   </form>
   @endif
   <hr>
+  @if ($posts->isEmpty())
+      <p>条件に合致する投稿はありませんでした。</p>
+  @endif
   @foreach ($posts as $post)
   <p>投稿者: <a href="{{route('users.showdetail', ['user' => App\User::find($post->user_id)])}}">
       {{App\User::find($post->user_id)->name}}</a></p>
