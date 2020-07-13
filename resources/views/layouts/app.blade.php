@@ -14,6 +14,13 @@
     |
     @if (Auth::user())
     <a href="{{route('logout')}}">logout</a>
+    |
+    <!-- 検索フォーム-->
+    <form action="{{route('posts.index')}}" method="get">
+      @csrf
+      <input type="text" name="keyword" value="{{$keyword}}" placeholder="unko" >
+      <button>search</button>
+     </form>
     @else
     <a href="{{route('login')}}">login</a>
     @endif

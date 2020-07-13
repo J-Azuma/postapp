@@ -15,13 +15,16 @@ class PostController extends Controller
    *
    * @return post一覧ページ
    */
-  public function index()
+  public function index(Request $request)
   {
+   $keyword = $request->input('keyword');
+   if ($keyword == null) {
+     $keyword = "";
+   }
     //postsテーブルのレコードをidの降順に取得してpaginate関数を使って1ページあたり10件表示したい。
-    $posts = Post::orderBy('id', 'desc')->paginate(10);
-    return view('posts.index', [
-      'posts' => $posts,
-    ]);
+    $posts = Post::where('content', 'like', '%'.$keyword.'%')->orderBy('id', 'desc')->paginate(10);
+    return view('posts.index',
+    ['posts' => $posts, 'keyword' => $keyword]);
   }
 
 
