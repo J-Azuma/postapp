@@ -10,7 +10,7 @@
 
 <body>
   <header>
-    <a href="{{route('/')}}">Sample App</a>
+    <a href="{{route('home')}}">Sample App</a>
     |
     @if (Auth::user())
     <a href="{{route('logout')}}">logout</a>
@@ -21,7 +21,5 @@
   <main>
     @yield('content')
   </main>
-  @yield('scripts')
 </body>
-
 </html>
