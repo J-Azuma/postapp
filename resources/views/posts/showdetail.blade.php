@@ -18,6 +18,7 @@
   <hr>
   @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
     <span>{{$comment->created_at->format('yy/m/d G:i:s')}}</span> <br>
+    <span>{{App\User::find($comment->user_id)->name}}</span> <br>
     <span>{{$comment->content}}</span> <br>
     <hr>
   @endforeach
