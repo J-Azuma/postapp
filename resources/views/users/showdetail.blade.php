@@ -8,7 +8,7 @@
   posts <br>
   @foreach ($posts as $post)
   <p>タイトル</p>
-  <span>{{$post->title}}</span> <br>
+  <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a> <br>
   <p>作成日</p>
   <span>{{$post->created_at->format('yy/m/d')}}<span>
   <p>本文</p>
