@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\EditUser;
+use App\Post;
 
 class UserController extends Controller
 {
@@ -18,8 +19,11 @@ class UserController extends Controller
    */
   public function showDetail(User $user)
   {
+    //ここでpostsが取得できていない
+    $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->get();
     return view('users.showdetail', [
       'user' => $user,
+      'posts' => $posts,
     ]);
   }
 
