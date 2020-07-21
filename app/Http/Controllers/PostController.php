@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\CreatePost;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +40,9 @@ class PostController extends Controller
     $post = new Post();
     $post->title = $request->title;
     $post->content = $request->content;
+    $post->image_path = $request->image_path->storeAs('public/post_images', Carbon::now()->format('Y-m-d').'_'.Auth::user()->id.'.jpg');
+    //画像のパスを変えているがこれでいいのか？
+    $post->image_path = str_replace('public', '/storage', $post->image_path);
     $post->user_id = Auth::user()->id;
     $post->save();
     return redirect()->route('posts.index', [

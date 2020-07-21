@@ -8,12 +8,13 @@
   <li>{{$message}}</li>
   @endforeach
   @endif
-  <form action="{{route('posts.create')}}" method="post">
+  <form action="{{route('posts.create')}}" method="post" enctype="multipart/form-data">
     @csrf
     <label for="post-title">title</label> <br>
     <input type="text" id="post-title" name="title" value="{{old('title')}}"> <br>
     <label for="post-content">content</label> <br>
     <textarea name="content" id="post-content" cols="20" rows="10">{{old('content')}}</textarea> <br>
+    <input type="file" name="image_path"> <br><br>
     <button>submit</button>
   </form>
   @endif
@@ -25,7 +26,10 @@
   <p>投稿者: <a href="{{route('users.showdetail', ['user' => App\User::find($post->user_id)])}}">
       {{App\User::find($post->user_id)->name}}</a></p>
   <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
-  <p>{{$post->content}}</p>
+  <p>{{$post->content}}</p> <br>
+  @if ($post->image_path)
+      <img src="{{$post->image_path}}">
+  @endif
   コメント数 : <span>{{$post->comments()->get()->count()}}</span>
   <hr>
   @endforeach
