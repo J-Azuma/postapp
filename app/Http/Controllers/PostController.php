@@ -7,7 +7,7 @@ use App\Post;
 use App\Http\Requests\CreatePost;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use \InterventionImage;
 
 class PostController extends Controller
 {
@@ -40,6 +40,8 @@ class PostController extends Controller
     $post = new Post();
     $post->title = $request->title;
     $post->content = $request->content;
+
+
     $post->image_path = $request->image_path->storeAs('public/post_images', Carbon::now()->format('Y-m-d').'_'.Auth::user()->id.'.jpg');
     //画像のパスを変えているがこれでいいのか？
     $post->image_path = str_replace('public', '/storage', $post->image_path);
