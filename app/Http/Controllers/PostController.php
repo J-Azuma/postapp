@@ -45,6 +45,8 @@ class PostController extends Controller
 
     //コードが横長になり、読みにくくなるのを防ぐために変数として切り出している。
     $file_name = Carbon::now().Auth::user()->id.'.jpg';
+
+    //画像をstorage/app/public/post_imagesに保存しつつ、ファイル名のみを取り出して保存
     $post->image_path = basename($request->image_path->storeAs('public/post_images', $file_name));
     $post->user_id = Auth::user()->id;
     $post->save();
