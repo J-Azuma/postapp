@@ -28,7 +28,7 @@
   <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a>
   <p>{{$post->content}}</p> <br>
   @if ($post->image_path)
-      <img src="{{$post->image_path}}">
+      <img src="{{asset('/storage/post_images/'.$post->image_path)}}">
   @endif
   コメント数 : <span>{{$post->comments()->get()->count()}}</span>
   <hr>

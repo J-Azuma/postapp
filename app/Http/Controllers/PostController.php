@@ -7,7 +7,8 @@ use App\Post;
 use App\Http\Requests\CreatePost;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use \InterventionImage;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class PostController extends Controller
 {
@@ -18,6 +19,7 @@ class PostController extends Controller
    */
   public function index(Request $request)
   {
+    //検索ワードが空（あるいは最初にページが表示された)場合は全件表示するようにする
    $keyword = $request->keyword;
    if ($keyword == null) {
      $keyword = "";
@@ -41,10 +43,9 @@ class PostController extends Controller
     $post->title = $request->title;
     $post->content = $request->content;
 
-
-    $post->image_path = $request->image_path->storeAs('public/post_images', Carbon::now()->format('Y-m-d').'_'.Auth::user()->id.'.jpg');
-    //画像のパスを変えているがこれでいいのか？
-    $post->image_path = str_replace('public', '/storage', $post->image_path);
+    //コードが横長になり、読みにくくなるのを防ぐために変数として切り出している。
+    $file_name = Carbon::now().Auth::user()->id.'.jpg';
+    $post->image_path = basename($request->image_path->storeAs('public/post_images', $file_name));
     $post->user_id = Auth::user()->id;
     $post->save();
     return redirect()->route('posts.index', [
