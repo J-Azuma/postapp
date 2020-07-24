@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\EditUser;
 use App\Post;
 
+/**
+ * ユーザー情報を扱うコントローラクラス.
+ */
 class UserController extends Controller
 {
 
@@ -20,7 +23,7 @@ class UserController extends Controller
   public function showDetail(User $user)
   {
     //ここでpostsが取得できていない
-    $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->get();
+    $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->paginate(10);
     return view('users.showdetail', [
       'user' => $user,
       'posts' => $posts,
@@ -41,9 +44,15 @@ class UserController extends Controller
     );
   }
 
+  /**
+   * ユーザー情報を更新する.
+   *
+   * @param EditUser $request  リクエストフォーム
+   * @param User $user ユーザー
+   * @return void
+   */
   public function edit(EditUser $request, User $user)
   {
-    //更新処理が実行できない。データベースも更新されていないので、saveメソッドが実行されていない。
     $user->name = $request->name;
     $user->email = $request->email;
     $user->profile = $request->profile;

@@ -15,6 +15,7 @@
   <span>{{$post->content}}</span> <br> <br>
   <hr>
   @endforeach
+  {{$posts->links()}}
 
   @if (Auth::check() && Auth::user()->id == $user->id)
   <a href="{{route('users.showeditform', ['user' => $user])}}">登録情報を編集する</a>
