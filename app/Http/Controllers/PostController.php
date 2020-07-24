@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\CreatePost;
 use Carbon\Carbon;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Image;
+use GuzzleHttp\Psr7\Stream;
+use Intervention\Image\Image;
 
 class PostController extends Controller
 {
@@ -46,7 +48,10 @@ class PostController extends Controller
     //コードが横長になり、読みにくくなるのを防ぐために変数として切り出している。
     $file_name = Carbon::now().Auth::user()->id.'.jpg';
 
-    //画像をstorage/app/public/post_imagesに保存しつつ、ファイル名のみを取り出して保存
+
+    //storeAsメソッドはilluminate\uploadedfileを引数にとるので、intervention\imageクラスのオブジェクトである
+    //resized_imageには適用できない。型変換ができるか？
+    //$resized_image = \Image::make($request->image_path)->resize(300, 250)->save('public/post_images/'.$file_name.'.jpg');
     $post->image_path = basename($request->image_path->storeAs('public/post_images', $file_name));
     $post->user_id = Auth::user()->id;
     $post->save();
