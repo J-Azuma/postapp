@@ -17,10 +17,17 @@ use Illuminate\Support\Facades\Route;
 //認証が必要な機能
 Route::group(['middleware' => ['auth']], function () {
   Route::post('/posts/create', 'PostController@create')->name('posts.create');
-  Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
   Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
-  Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
-  Route::post('users/edit/{user}', 'UserController@edit')->name('users.edit');
+  //urlに渡されたパラメータとログインユーザーのidが一致するときのみ認可
+  Route::group(['middleware' => 'can:view, user'], function () {
+    Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
+    Route::post('users/edit/{user}', 'UserController@edit')->name('users.edit');
+  });
+
+  //パラメータとして渡されたpostのuser_idがログインユーザーのidと一致している時のみ認可
+  Route::group(['middleware' => 'can:view, post'], function () {
+    Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
+  });
 });
 
 
