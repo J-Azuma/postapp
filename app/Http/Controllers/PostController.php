@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Psr7\Stream;
 use Intervention\Image\Image;
 
+/**
+ * 投稿機能に関するコントローラクラス.
+ *
+ */
 class PostController extends Controller
 {
   /**
