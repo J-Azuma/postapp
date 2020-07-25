@@ -26,6 +26,6 @@ class PostPolicy
 
     public function view(Post $post)
     {
-      return $post->user_id === Auth::user()->id;
+      return $post->user_id == Auth::user()->id;
     }
 }

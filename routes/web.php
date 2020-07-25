@@ -19,7 +19,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/posts/create', 'PostController@create')->name('posts.create');
   Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
   //urlに渡されたパラメータとログインユーザーのidが一致するときのみ認可
-  Route::group(['middleware' => 'can:view, user'], function () {
+  Route::group(['middleware' => 'can:view,user'], function () {
     Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
     Route::post('users/edit/{user}', 'UserController@edit')->name('users.edit');
   });

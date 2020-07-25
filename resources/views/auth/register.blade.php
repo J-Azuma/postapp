@@ -1,26 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-
-@if ($errors->any())
-@foreach ($errors->all() as $message)
-<p>{{$message}}</p>
-@endforeach
-@endif
-<form action="{{route('register')}}" method="post">
-  @csrf
-  <label for="input-name">name</label> <br>
-  <input type="text" name="name" id="input-name"> <br>
-
-  <label for="input-email">email</label> <br>
-  <input type="text" name="email" id="input-email"> <br>
-
-  <label for="input-password">password</label> <br>
-  <input type="password" name="password" id="input-password"> <br>
-
-  <label for="input-password-confirmation">password(confirmation)</label> <br>
-  <input type="password" name="password_confirmation" id="input-password-confirmation"> <br>
-
-  <button>submit</button>
-</form>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <nav class="card">
+        <div class="card-header">register</div>
+        <div class="card-body">
+          @if ($errors->any())
+          <div class="alert alert-danger">
+            @foreach ($errors->all() as $message)
+            <p>{{$message}}</p>
+            @endforeach
+          </div>
+          @endif
+          <form action="{{route('register')}}" method="post">
+            @csrf
+            <div class="form-group">
+              <label for="input-name">name</label>
+              <input type="text" name="name" id="input-name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="input-email">email</label>
+              <input type="text" name="email" id="input-email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="input-password">password</label>
+              <input type="password" name="password" id="input-password" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="input-password-confirmation">password(confirmation)</label> <br>
+              <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control"> <br>
+            </div>
+            <button class="btn btn-primary">submit</button>
+          </form>
+        </div>
+        <div class="card-footer">
+          <a href="{{route('login')}}">login</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
 @endsection

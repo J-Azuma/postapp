@@ -1,35 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-  <p>タイトル</p>
-  <span>{{$post->title}}</span> <br>
-  <p>投稿者</p>
-  <span>{{App\User::find($post->user_id)->name}}</span> <br>
-  <p>作成日</p>
-  <span>{{$post->created_at->format('yy/m/d')}}<span>
-  <p>本文</p>
-  <span>{{$post->content}}</span> <br> <br>
-  @if (Auth::check() && Auth::user()->id == $post->user_id)
-  <form action="{{route('posts.delete', ['post' => $post])}}" method="post">
-    @csrf
-    <button>delete</button>
-    </form> <br>
-  @endif
-  <hr>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <nav class="card">
+        <div class="card-header"><span>{{$post->title}}</span></div>
+        <div class="card-body">
+          <div class="card-title">{{App\User::find($post->user_id)->name}}</div>
+          <h6 class="card-subtitle">{{$post->created_at->format('yy/m/d')}}</h6>
+          <div class="card-text">
+            {{$post->content}}
+          </div>
+        </div>
+        @if (Auth::check() && Auth::user()->id == $post->user_id)
+        <div class="card-footer">
+          <form action="{{route('posts.delete', ['post' => $post])}}" method="post">
+            @csrf
+            <button>delete</button>
+          </form>
+        </div>
+        @endif
+      </nav>
+    </div>
+  </div>
+  comments : {{$post->comments()->count()}}
+  <div class="col-4">
   @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
-    <span>{{$comment->created_at->format('yy/m/d G:i:s')}}</span> <br>
-    <span>{{App\User::find($comment->user_id)->name}}</span> <br>
-    <span>{{$comment->content}}</span> <br>
-    <hr>
-  @endforeach
+    <nav class="card">
+      <div class="card-body">
+        <div class="card-subtitle">{{App\User::find($comment->user_id)->name}}</div>
+        {{$comment->created_at->format('yy/m/d G:i:s')}}
+        <div class="card-text">{{$comment->content}}</div>
+      </div>
+    </nav>
+    @endforeach
+  </div>
 
   @if (Auth::check() && $post->user_id != Auth::user()->id)
-  コメントを送信する <br>
-  <form action="{{route('comments.create', ['post' => $post])}}" method="post">
-   @csrf
-   <label for="comment">本文</label> <br>
-   <textarea name="content" id="comment" cols="20" rows="10">{{old('content')}}</textarea> <br>
-   <button>コメントを送信</button>
-  @endif
-  </form>
+  <hr>
+  <div class="col-4">
+    <nav class="card">
+      <div class="card-header">コメントを送信する</div>
+      <div class="card-body">
+        <form action="{{route('comments.create', ['post' => $post])}}" method="post">
+          @csrf
+          <div class="form-group">
+            <label for="comment">本文</label>
+            <textarea name="content" id="comment" cols="5" rows="5" class="form-control">{{old('content')}}</textarea>
+          </div>
+          <button class="btn btn-primary">コメントを送信</button>
+          @endif
+        </form>
+      </div>
+    </nav>
+  </div>
+</div>
 @endsection
