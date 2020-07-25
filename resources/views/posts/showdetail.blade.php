@@ -26,7 +26,7 @@
   </div>
   comments : {{$post->comments()->count()}}
   <div class="col-4">
-  @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
+    @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
     <nav class="card">
       <div class="card-body">
         <div class="card-subtitle">{{App\User::find($comment->user_id)->name}}</div>
@@ -43,6 +43,13 @@
     <nav class="card">
       <div class="card-header">コメントを送信する</div>
       <div class="card-body">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+          @foreach ($errors->all() as $message)
+          {{$message}}
+          @endforeach
+        </div>
+        @endif
         <form action="{{route('comments.create', ['post' => $post])}}" method="post">
           @csrf
           <div class="form-group">

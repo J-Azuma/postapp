@@ -14,6 +14,13 @@
       <div class="card">
         <div class="card-header">edit profile</div>
         <div class="card-body">
+          @if ($errors->any())
+          <div class="alert alert-danger">
+            @foreach ($errors->all() as $message)
+            {{$message}}
+            @endforeach
+          </div>
+          @endif
           <form action="{{route('users.edit', ['user' => $user])}}" method="post">
             @csrf
             <div class="form-group">
