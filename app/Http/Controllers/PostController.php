@@ -54,8 +54,6 @@ class PostController extends Controller
     if ($request->image_path) {
       //コードが横長になり、読みにくくなるのを防ぐために変数として切り出している。
       $file_name = Carbon::now() . Auth::user()->id . '.jpg';
-
-
       //storeAsメソッドはilluminate\uploadedfileを引数にとるので、intervention\imageクラスのオブジェクトである
       //resized_imageには適用できない。型変換ができるか？
       //$resized_image = \Image::make($request->image_path)->resize(300, 250)->save('public/post_images/'.$file_name.'.jpg');
