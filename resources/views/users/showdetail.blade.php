@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <h2 class="col-sm-12">User Profile</h2> <br>
-    @if (Auth::check() && Auth::user()->id == $user->id)
+    @if (Auth::user()->id == $user->id)
       <a href="{{route('users.showeditform', ['user' => $user])}}" class="badge badge-secondary">edit</a>
       @endif
     <table class="table table-striped table-bordered">

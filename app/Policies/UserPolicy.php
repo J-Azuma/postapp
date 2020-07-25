@@ -32,6 +32,6 @@ class UserPolicy
      */
     public function view(User $user)
     {
-      return $user->id == Auth::user()->id;
+      return Auth::user()->id === $user->id;
     }
 }

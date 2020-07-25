@@ -22,7 +22,6 @@ class UserController extends Controller
    */
   public function showDetail(User $user)
   {
-    //ここでpostsが取得できていない
     $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->paginate(10);
     return view('users.showdetail', [
       'user' => $user,
@@ -38,10 +37,14 @@ class UserController extends Controller
    */
   public function showEditForm(User $user)
   {
-    return view(
-      'users.showeditform',
-      ['user' => $user]
-    );
+    if ($user->id != Auth::user()->id) {
+      abort(403);
+    } else {
+      return view(
+        'users.showeditform',
+        ['user' => $user]
+      );
+    }
   }
 
   /**
@@ -53,10 +56,14 @@ class UserController extends Controller
    */
   public function edit(EditUser $request, User $user)
   {
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->profile = $request->profile;
-    $user->save();
-    return redirect()->route('users.showdetail', ['user' => $user]);
+    if ($user->id != Auth::user()->id) {
+      abort(403);
+    } else {
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->profile = $request->profile;
+      $user->save();
+      return redirect()->route('users.showdetail', ['user' => $user]);
+    }
   }
 }

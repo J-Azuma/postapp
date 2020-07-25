@@ -35,11 +35,12 @@
   @if ($posts->isEmpty())
   <p>条件に合致する投稿はありませんでした。</p>
   @endif
+  <div class="col-md-8">
   @foreach ($posts as $post)
   <div class="card">
     <div class="card-header">
-      <p>投稿者: <br><a href="{{route('users.showdetail', ['user' => App\User::find($post->user_id)])}}">
-          {{App\User::find($post->user_id)->name}}</a></p>
+      <a href="{{route('users.showdetail', ['user' => App\User::find($post->user_id)])}}">
+        {{App\User::find($post->user_id)->name}}</a>
     </div>
     <div class="card-body">
       <div class="card-title"> <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a></div>
@@ -51,6 +52,7 @@
     </div>
   </div>
   @endforeach
+</div>
   <div class="pagination justify-content">
     {{$posts->links()}}
   </div>

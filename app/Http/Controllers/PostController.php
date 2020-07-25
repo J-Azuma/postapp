@@ -26,14 +26,16 @@ class PostController extends Controller
   public function index(Request $request)
   {
     //検索ワードが空（あるいは最初にページが表示された)場合は全件表示するようにする
-   $keyword = $request->keyword;
-   if ($keyword == null) {
-     $keyword = "";
-   }
+    $keyword = $request->keyword;
+    if ($keyword == null) {
+      $keyword = "";
+    }
     //postsテーブルのレコードをidの降順に取得してpaginate関数を使って1ページあたり10件表示したい。
-    $posts = Post::where('content', 'like', '%'.$keyword.'%')->orderBy('id', 'desc')->paginate(10);
-    return view('posts.index',
-    ['posts' => $posts, 'keyword' => $keyword]);
+    $posts = Post::where('content', 'like', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+    return view(
+      'posts.index',
+      ['posts' => $posts, 'keyword' => $keyword]
+    );
   }
 
 
@@ -49,14 +51,16 @@ class PostController extends Controller
     $post->title = $request->title;
     $post->content = $request->content;
 
-    //コードが横長になり、読みにくくなるのを防ぐために変数として切り出している。
-    $file_name = Carbon::now().Auth::user()->id.'.jpg';
+    if ($request->image_path) {
+      //コードが横長になり、読みにくくなるのを防ぐために変数として切り出している。
+      $file_name = Carbon::now() . Auth::user()->id . '.jpg';
 
 
-    //storeAsメソッドはilluminate\uploadedfileを引数にとるので、intervention\imageクラスのオブジェクトである
-    //resized_imageには適用できない。型変換ができるか？
-    //$resized_image = \Image::make($request->image_path)->resize(300, 250)->save('public/post_images/'.$file_name.'.jpg');
-    $post->image_path = basename($request->image_path->storeAs('public/post_images', $file_name));
+      //storeAsメソッドはilluminate\uploadedfileを引数にとるので、intervention\imageクラスのオブジェクトである
+      //resized_imageには適用できない。型変換ができるか？
+      //$resized_image = \Image::make($request->image_path)->resize(300, 250)->save('public/post_images/'.$file_name.'.jpg');
+      $post->image_path = basename($request->image_path->storeAs('public/post_images', $file_name));
+    }
     $post->user_id = Auth::user()->id;
     $post->save();
     return redirect()->route('posts.index', [

@@ -24,8 +24,14 @@ class PostPolicy
         //
     }
 
-    public function view(Post $post)
+    /**
+     * 投稿削除の認可を行う.
+     *
+     * @param Post $post
+     * @return void
+     */
+    public function delete(Post $post)
     {
-      return $post->user_id == Auth::user()->id;
+      return Auth::user()->id === $post->user_id;
     }
 }
