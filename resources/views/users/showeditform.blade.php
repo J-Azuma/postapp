@@ -4,13 +4,6 @@
 <div class="container">
   <div class="row">
     <div class="col-6">
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        @foreach ($errors->all() as $message)
-        <li>{{$message}}</li>
-        @endforeach
-      </div>
-      @endif
       <div class="card">
         <div class="card-header">edit profile</div>
         <div class="card-body">

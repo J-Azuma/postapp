@@ -26,6 +26,7 @@ class CreatePost extends FormRequest
         return [
             'title' => 'required|max:20',
             'content' => 'required|max:200',
+            'image_path' => 'image|max:1024',
         ];
     }
 }
