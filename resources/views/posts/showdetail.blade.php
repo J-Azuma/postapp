@@ -41,7 +41,7 @@
   <hr>
   <div class="col-4">
     <nav class="card">
-      <div class="card-header">コメントを送信する</div>
+      <div class="card-header">Add Comment</div>
       <div class="card-body">
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -53,10 +53,10 @@
         <form action="{{route('comments.create', ['post' => $post])}}" method="post">
           @csrf
           <div class="form-group">
-            <label for="comment">本文</label>
+            <label for="comment">content</label>
             <textarea name="content" id="comment" cols="5" rows="5" class="form-control">{{old('content')}}</textarea>
           </div>
-          <button class="btn btn-primary">コメントを送信</button>
+          <button class="btn btn-primary">submit</button>
           @endif
         </form>
       </div>

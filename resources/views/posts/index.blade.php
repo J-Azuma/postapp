@@ -38,7 +38,7 @@
   </div>
   <hr>
   @if ($posts->isEmpty())
-  <p>条件に合致する投稿はありませんでした。</p>
+  <p>No result</p>
   @endif
   <div class="col-md-8">
     @foreach ($posts as $post)
@@ -52,7 +52,7 @@
         <div class="card-text">{{$post->content}}</div>
         @if ($post->image_path)
         <div class="card-img"> <img src="{{asset('/storage/post_images/'.$post->image_path)}}"></div>
-        コメント数 : <span>{{$post->comments()->get()->count()}}</span>
+        Comments : <span>{{$post->comments()->get()->count()}}</span>
         @endif
       </div>
     </div>

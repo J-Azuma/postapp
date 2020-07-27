@@ -29,7 +29,8 @@
           </form>
         </div>
         <div class="card-footer">
-          <a href="{{route('register')}}">register</a>
+          <a href="{{route('register')}}">register</a> <br>
+          <a href="{{route('password.request')}}">forget password?</a>
         </div>
       </nav>
       test user <br>
