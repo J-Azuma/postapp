@@ -74,7 +74,8 @@ class PostController extends Controller
    */
   public function showDetail(Post $post)
   {
-    return view('posts.showdetail', ['post' => $post,]);
+    $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
+    return view('posts.showdetail', ['post' => $post, 'comments' => $comments,]);
   }
 
   /**

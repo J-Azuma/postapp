@@ -26,7 +26,7 @@
   </div>
   comments : {{$post->comments()->count()}}
   <div class="col-4">
-    @foreach ($post->comments()->get()->sortByDesc('created_at') as $comment)
+    @foreach ($comments as $comment)
     <nav class="card">
       <div class="card-body">
         <div class="card-subtitle">{{App\User::find($comment->user_id)->name}}</div>
@@ -35,6 +35,7 @@
       </div>
     </nav>
     @endforeach
+    {{$comments->links()}}
   </div>
 
   @if (Auth::check() && $post->user_id != Auth::user()->id)
