@@ -23,9 +23,8 @@ class CommentPosted extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user, Comment $comment, Post $post)
+    public function __construct(Comment $comment, Post $post)
     {
-        $this->user = $user;
         $this->comment = $comment;
         $this->post = $post;
     }
