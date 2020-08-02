@@ -10,4 +10,14 @@ class Post extends Model
   {
     return $this->hasMany('App\Comment');
   }
+
+  /**
+   * 1つのpostインスタンスに複数のlikeモデルが紐づく.
+   *
+   * @return void
+   */
+  public function likes()
+  {
+    return $this->hasMany('App\Like');
+  }
 }

@@ -37,9 +37,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * 1つのuserインスタンスは複数のpostインスタンスと紐づく.
+     *
+     * @return void
+     */
     public function posts()
     {
       # code...
       return $this->hasMany('App\Post');
+
+    }
+    /**
+     *  1つのuserインスタンスは複数のlikeインスタンスと紐づく.
+     *
+     * @return void
+     */
+    public function likes()
+    {
+      return $this->hasMany('App\Like');
     }
 }
