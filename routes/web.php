@@ -20,7 +20,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/comments/create/{post}', 'CommentController@create')->name('comments.create');
   Route::get('users/edit/{user}', 'UserController@showEditForm')->name('users.showeditform');
   Route::post('users/edit/{user}', 'UserController@edit')->name('users.edit');
-
+  Route::get('posts/like/{post}', 'PostController@like')->name('posts.like');
+  Route::get('posts/unlike/{post}', 'PostController@unlike')->name('posts.unlike');
   //パラメータとして渡されたpostのuser_idがログインユーザーのidと一致している時のみ認可
   Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete')->middleware('can:delete, post');
 });
