@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\CreatePost;
+use App\Like;
 use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Auth;
@@ -90,5 +91,31 @@ class PostController extends Controller
     return redirect()->route('posts.index', [
       'posts' => Post::all()->sortByDesc('id'),
     ]);
+  }
+  /**
+   * 引数で受け取ったpostと紐づいた投稿にlikeをつける.
+   *
+   * @param Post $post 投稿
+   * @return void
+   */
+  public function like(Post $post)
+  {
+    Like::create([
+      'post_id' => $post->id,
+      'user_id' => Auth::id(),
+    ]);
+    return redirect()->back();
+  }
+
+  /**
+   * 引数で受け取ったpostと紐づいたlikeを消す.
+   *
+   * @param Post $post
+   * @return void
+   */
+  public function unlike(Post $post)
+  {
+    Like::where('post_id', $post->id)->where('user_id', Auth::id())->get()->delete();
+    return redirect()->back();
   }
 }
