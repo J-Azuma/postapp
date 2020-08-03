@@ -59,7 +59,7 @@
           <a href="{{route('posts.unlike', ['post' => $post])}}" class="btn btn-success btn-sm">いいね<span
               class="badge">{{ $post->likes->count() }}</span></a>
           @else
-          <a href="{{route('posts.like', ['post' => $post])}}" class="btn btn-success btn-sm">いいね<span
+          <a href="{{route('posts.like', ['post' => $post])}}" class="btn btn-secondary btn-sm">いいね<span
               class="badge">{{ $post->likes->count() }}</span></a>
           @endif
         </div>
