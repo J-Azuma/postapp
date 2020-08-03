@@ -26,6 +26,7 @@
           </div>
          </form>
     @if (Auth::user())
+    <a href="{{route('users.showdetail', ['user' => Auth::user()])}}" style="color:white">{{Auth::user()->name}}</a>
     <form action="{{route('logout')}}" method="post">
       @csrf
       <button>logout</button>
