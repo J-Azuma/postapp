@@ -54,6 +54,15 @@
         <div class="card-img"> <img src="{{asset('/storage/post_images/'.$post->image_path)}}"></div>
         Comments : <span>{{$post->comments()->get()->count()}}</span>
         @endif
+        <div>
+          @if ($post->is_liked_by_auth_user())
+          <a href="{{route('posts.unlike', ['post' => $post])}}" class="btn btn-success btn-sm">いいね<span
+              class="badge">{{ $post->likes->count() }}</span></a>
+          @else
+          <a href="{{route('posts.like', ['post' => $post])}}" class="btn btn-success btn-sm">いいね<span
+              class="badge">{{ $post->likes->count() }}</span></a>
+          @endif
+        </div>
       </div>
     </div>
     @endforeach

@@ -8,6 +8,12 @@ class Like extends Model
 {
 
   /**
+   * 書き込み可能なプロパティを配列に格納する.
+   *
+   * @var array
+   */
+  protected $fillable = ['post_id', 'user_id'];
+  /**
    * 1つのlikeインスタンスは1つのpostインスタンスと紐づく.
    *
    * @return void
