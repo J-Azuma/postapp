@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * コメントを取り扱うコントローラクラス.
+ */
 class CommentController extends Controller
 {
   /**

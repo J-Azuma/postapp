@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * like状態保持するモデルクラス.
+ */
 class Like extends Model
 {
 
