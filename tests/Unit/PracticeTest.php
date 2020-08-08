@@ -31,13 +31,16 @@ class PracticeTest extends TestCase
     $test_post = factory(Post::class)->create();
 
 
-    $response = $this->get('/')->assertStatus(200);
+    $response = $this->get('/');
+    $response->assertStatus(200)->assertViewIs('posts.index');
 
 
-    $response = $this->get('/posts/index')->assertStatus(200);
+    $response = $this->get('/posts/index');
+    $response->assertStatus(200)->assertViewIs('posts.index');
 
 
-    $response = $this->get('/posts/detail/11111111')->assertStatus(404);
+    $response = $this->get('/posts/detail/11111111');
+    $response->assertStatus(404);
 
     $response = $this->get('/posts/detail/'.$test_post->id)->assertStatus(200);
 

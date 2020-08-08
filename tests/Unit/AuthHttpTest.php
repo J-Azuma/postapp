@@ -8,6 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+/**
+ * 認証機能に関するテスト.
+ */
 class AuthHttpTest extends TestCase
 {
   use RefreshDatabase;
@@ -20,14 +23,10 @@ class AuthHttpTest extends TestCase
    */
   public function testAuthAccess()
   {
-    //そもそもこれだけではユーザーが用意されない
-    $user = factory(User::class)->create();
-    $post = factory(Post::class)->create();
+    $response = $this->get('/register');
+    $response->assertStatus(200)->assertViewIs('auth.register');
 
-    $response = $this->post(
-      'posts/create',
-      ['title' => 'fizzbuzz', 'content' => 'foobar',]
-    );
-    $response->assertStatus(302);
+    $response = $this->get('/login');
+    $response->assertStatus(200)->assertViewIs('auth.login');
   }
 }
