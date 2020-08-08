@@ -31,5 +31,5 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/', 'PostController@index')->name('home');
 Route::get('/posts/index', 'PostController@index')->name('posts.index');
 Route::get('/posts/detail/{post}', 'PostController@showDetail')->name('posts.showdetail');
-Route::get('users/detail/{user}', 'UserController@showDetail')->name('users.showdetail');
+Route::get('/users/detail/{user}', 'UserController@showDetail')->name('users.showdetail');
 Auth::routes();
