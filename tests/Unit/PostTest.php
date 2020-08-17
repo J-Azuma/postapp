@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Post;
 use App\User;
+use Illuminate\Support\Str;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Tests\TestCase;
 
@@ -28,8 +29,8 @@ class PostTest extends TestCase
     $response = $this->get('/posts/detail/90000000000');
     $response->assertStatus(404);
 
-    $response = $this->actingAs($user)->post('/posts/delete/' . $post->id);
-    $response->assertOk();
+    // $response = $this->actingAs($user)->post('/posts/delete/' . $post->id);
+    // $response->assertOk();
   }
 
   /**
@@ -37,16 +38,61 @@ class PostTest extends TestCase
    *
    * @return void
    */
-  public function testCreatePost()
+  public function testCreatePostSuccess()
   {
     $user = factory(User::class)->create();
 
     $response = $this->actingAs($user)->post('/posts/create', [
-      'title' => 'sample',
-      'content' => 'foobarfizzbuzz',
+      'title' => 'aaaaaaaaaaaaaaaaaaaa',
+      'content' => Str::random(200),
       'user_id' => $user->id,
     ]);
     $response->assertRedirect('/posts/index');
-    $this->assertDatabaseHas('posts', ['title' => 'sample']);
+    $this->assertDatabaseHas('posts', ['title' => 'aaaaaaaaaaaaaaaaaaaa']);
+  }
+
+  /**
+   * 投稿作成機能のテスト(バリデーションチェックのテスト)
+   *
+   * @return void
+   */
+  public function testCreatePostFail()
+  {
+    //タイトルが未入力
+    $user = factory(User::class)->create();
+
+    $response = $this->actingAs($user)->post('/posts/create', [
+      'title' => Str::random(0),
+      'content' => 'hogehoge',
+      'user_id' => $user->id,
+    ]);
+    $response->assertRedirect('/');
+    $this->assertDatabaseMissing('posts', ['content' => 'hogehoge',]);
+
+    //タイトルの文字数が上限値を超えている
+    $response = $this->actingAs($user)->post('/posts/create', [
+      'title' => Str::random(21),
+      'content' => 'hugahuga',
+      'user_id' => $user->id,
+    ]);
+    $response->assertRedirect('/');
+    $this->assertDatabaseMissing('posts', ['content' => 'hogehoge',]);
+
+    //内容が空
+    $response = $this->actingAs($user)->post('/posts/create', [
+      'title' => 'content_null',
+      'content' => Str::random(0),
+      'user_id' => $user->id,
+    ]);
+    $response->assertRedirect('/');
+    $this->assertDatabaseMissing('posts', ['title' => 'content_null',]);
+
+    $response = $this->actingAs($user)->post('/posts/create', [
+      'title' => 'content_over',
+      'content' => Str::random(201),
+      'user_id' => $user->id,
+    ]);
+    $response->assertRedirect('/');
+    $this->assertDatabaseMissing('posts', ['title' => 'content_over',]);
   }
 }
