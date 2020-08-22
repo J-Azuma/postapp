@@ -18,15 +18,15 @@
             @csrf
             <div class="form-group">
               <label for="input-name">name</label>
-              <input type="text" name="name" id="input-name" class="form-control">
+              <input type="text" name="name" id="input-name" class="form-control" value="{{old('name')}}">
             </div>
             <div class="form-group">
               <label for="input-email">email</label>
-              <input type="text" name="email" id="input-email" class="form-control">
+              <input type="text" name="email" id="input-email" class="form-control" value="{{old('email')}}">
             </div>
             <div class="form-group">
               <label for="input-password">password</label>
-              <input type="password" name="password" id="input-password" class="form-control">
+              <input type="password" name="password" id="input-password" class="form-control" value="{{old('password')}}">
             </div>
             <div class="form-group">
               <label for="input-password-confirmation">password(confirmation)</label> <br>

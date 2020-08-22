@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Post;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Tests\TestCase;
@@ -13,6 +14,7 @@ use Tests\TestCase;
  */
 class PostTest extends TestCase
 {
+  use RefreshDatabase;
   /**
    * 投稿の詳細画面表示機能をテスト。。
    *
@@ -28,9 +30,6 @@ class PostTest extends TestCase
 
     $response = $this->get('/posts/detail/90000000000');
     $response->assertStatus(404);
-
-    // $response = $this->actingAs($user)->post('/posts/delete/' . $post->id);
-    // $response->assertOk();
   }
 
   /**
@@ -78,7 +77,7 @@ class PostTest extends TestCase
     $response->assertRedirect('/');
     $this->assertDatabaseMissing('posts', ['content' => 'hogehoge',]);
 
-    //内容が空
+    //contentが空
     $response = $this->actingAs($user)->post('/posts/create', [
       'title' => 'content_null',
       'content' => Str::random(0),
@@ -87,6 +86,7 @@ class PostTest extends TestCase
     $response->assertRedirect('/');
     $this->assertDatabaseMissing('posts', ['title' => 'content_null',]);
 
+    //contentが上限値を超えている
     $response = $this->actingAs($user)->post('/posts/create', [
       'title' => 'content_over',
       'content' => Str::random(201),
