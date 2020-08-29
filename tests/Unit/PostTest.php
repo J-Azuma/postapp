@@ -16,7 +16,7 @@ class PostTest extends TestCase
 {
   use RefreshDatabase;
   /**
-   * 投稿の詳細画面表示機能をテスト。。
+   * 投稿の詳細画面表示機能をテスト.
    *
    * @return void
    */
@@ -94,5 +94,23 @@ class PostTest extends TestCase
     ]);
     $response->assertRedirect('/');
     $this->assertDatabaseMissing('posts', ['title' => 'content_over',]);
+  }
+
+  /**
+   * 投稿削除機能のテスト.
+   *
+   * @return void
+   */
+  public function testDeletePostSuccess()
+  {
+
+    $user = factory(User::class)->create();
+    $post = factory(Post::class)->create([
+      'user_id' => $user->id,
+    ]);
+    $this->assertDatabaseHas('posts', ['title' => $post->title]);
+    $response = $this->actingAs($user)->from('/posts/detail/'.$post->id)->post('/posts/delete/'.$post->id);
+    $response->assertRedirect('/posts/index');
+    $this->assertDatabaseMissing('posts', ['title' => $post->title]);
   }
 }

@@ -87,10 +87,14 @@ class PostController extends Controller
    */
   public function delete(Post $post)
   {
-    $post->delete();
-    return redirect()->route('posts.index', [
-      'posts' => Post::all()->sortByDesc('id'),
-    ]);
+    if (Auth::user()->id !== $post->user_id) {
+      abort(403);
+    } else {
+      $post->delete();
+      return redirect()->route('posts.index', [
+        'posts' => Post::all()->sortByDesc('id'),
+      ]);
+    }
   }
   /**
    * 引数で受け取ったpostと紐づいた投稿にlikeをつける.

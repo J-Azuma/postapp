@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('posts/like/{post}', 'PostController@like')->name('posts.like');
   Route::get('posts/unlike/{post}', 'PostController@unlike')->name('posts.unlike');
   //パラメータとして渡されたpostのuser_idがログインユーザーのidと一致している時のみ認可
-  Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete')->middleware('can:delete, post');
+  Route::post('/posts/delete/{post}', 'PostController@delete')->name('posts.delete');
 });
 
 
