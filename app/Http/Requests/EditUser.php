@@ -27,7 +27,8 @@ class EditUser extends FormRequest
         return [
             'name' => 'required',
             'email' => 'email',
-            'profile' => 'max:255',
+            //nullを許容
+            'profile' => 'max:200',
         ];
     }
 }

@@ -37,14 +37,12 @@ class UserController extends Controller
    */
   public function showEditForm(User $user)
   {
-    if ($user->id != Auth::user()->id) {
-      abort(403);
-    } else {
-      return view(
-        'users.showeditform',
-        ['user' => $user]
-      );
-    }
+    $this->checkUserId($user);
+
+    return view(
+      'users.showeditform',
+      ['user' => $user]
+    );
   }
 
   /**
@@ -56,14 +54,26 @@ class UserController extends Controller
    */
   public function edit(EditUser $request, User $user)
   {
-    if ($user->id != Auth::user()->id) {
+
+    $this->checkUserId($user);
+
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->profile = $request->profile;
+    $user->save();
+    return redirect()->route('users.showdetail', ['user' => $user]);
+  }
+
+  /**
+   * ログインユーザーのIDと編集するユーザーのIDが異なる場合、アクセスを拒否
+   *
+   * @param User $user
+   * @return void
+   */
+  private function checkUserId(User $user)
+  {
+    if ($user->id !== Auth::user()->id) {
       abort(403);
-    } else {
-      $user->name = $request->name;
-      $user->email = $request->email;
-      $user->profile = $request->profile;
-      $user->save();
-      return redirect()->route('users.showdetail', ['user' => $user]);
     }
   }
 }

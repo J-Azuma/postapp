@@ -51,7 +51,7 @@
         <div class="card-title"> <a href="{{route('posts.showdetail', ['post' => $post])}}">{{$post->title}}</a></div>
         <div class="card-text">{{$post->content}}</div>
         @if ($post->image_path)
-        <div class="card-img"> <img src="{{asset('/storage/post_images/'.$post->image_path)}}"></div>
+        <div class="card-img"> <img src="{{asset('/storage/post_images/'.$post->image_path)}}" class="post-img"></div>
         Comments : <span>{{$post->comments()->get()->count()}}</span>
         @endif
         <div>

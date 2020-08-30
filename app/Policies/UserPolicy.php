@@ -6,10 +6,6 @@ use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * ユーザークラスを元とするポリシークラス.
- *
- */
 class UserPolicy
 {
     use HandlesAuthorization;
@@ -25,13 +21,13 @@ class UserPolicy
     }
 
     /**
-     * idがログインしているユーザーと同じものか確認.
+     * 認証済みユーザーとアクセス先のユーザーのIDが一致している場合のみアクセスを許可.
      *
      * @param User $user
      * @return void
      */
     public function view(User $user)
     {
-      return Auth::user()->id === $user->id;
+      return (Auth::check()) && (Auth::user()->id === $user->id);
     }
 }
